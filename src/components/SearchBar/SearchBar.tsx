@@ -1,11 +1,14 @@
-import { useState } from "react"
+import React, {useState ,FormEvent} from "react"
 import { toast } from 'react-hot-toast'
 import css from './SearchBar.module.css'
 
-const SearchBar = ({ onSubmit }) => {
-    const [query, setQuery] = useState('');
+interface SearchBarProps {
+  onSubmit: (newQuery: string) => Promise<void>;
+}
+const SearchBar : React.FC <SearchBarProps>= ({ onSubmit }) => {
+    const [query, setQuery] = useState<string>('');
 
-    const handleSubmit = (evt) => {
+    const handleSubmit = (evt: FormEvent<HTMLFormElement>): void => {
         evt.preventDefault();
         if(query.trim() === '' ){
           toast('Write a word!', {
